@@ -44,7 +44,7 @@ namespace PropsEnumSample
             return IsTrue<StudentVerificationRequiredAttribute>(self);
         }
         private static bool IsTrue<T>(SubscriptionPlan self) where T : EnumBooleanAttributeBase {
-            var planName = Enum.GetName(typeof(SubscriptionPlan), self)!;
+            var planName = self.ToString();
             var plan = self.GetType().GetField(planName)!;
 
             T attr = plan.GetCustomAttributes(typeof(T), inherit: false).Cast<T>().FirstOrDefault() ??

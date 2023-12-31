@@ -1,9 +1,4 @@
 ﻿using PropsEnumSample;
+using BenchmarkDotNet.Running;
 
-var subscriptionPlan = SubscriptionPlan.Free;
-
-if (subscriptionPlan.IsBillingPromotionFeatureEnabled()) {
-    Console.WriteLine("Billing promotion feature is enabled.");
-} else {
-    Console.WriteLine("Billing promotion feature is disabled.");
-}
+var summary = BenchmarkRunner.Run<EnumBenchmark>();

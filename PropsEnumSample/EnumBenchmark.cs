@@ -10,5 +10,8 @@ namespace PropsEnumSample {
 
         [Benchmark]
         public bool IsEnabled() => SubscriptionPlan.Free.IsBillingPromotionFeatureEnabled();
+
+        [Benchmark]
+        public bool IsEnabledUsingCache() => SubscriptionPlan.Free.IsBillingPromotionFeatureEnabledUsingCache();
     }
 }

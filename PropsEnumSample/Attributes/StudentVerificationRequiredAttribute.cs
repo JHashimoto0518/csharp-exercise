@@ -1,6 +1,6 @@
 ﻿namespace PropsEnumSample.Attributes
 {
-    internal class StudentVerificationRequiredAttribute(bool enabled) : EnumEnableAttributeBase(enabled)
+    internal class StudentVerificationRequiredAttribute(bool value) : EnumBooleanAttributeBase(value)
     {
     }
 }

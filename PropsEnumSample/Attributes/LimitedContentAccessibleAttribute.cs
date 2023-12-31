@@ -1,6 +1,6 @@
 ﻿namespace PropsEnumSample.Attributes
 {
-    internal class LimitedContentAccessibleAttribute(bool enabled) : EnumEnableAttributeBase(enabled)
+    internal class LimitedContentAccessibleAttribute(bool value) : EnumBooleanAttributeBase(value)
     {
     }
 }

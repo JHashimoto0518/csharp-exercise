@@ -1,6 +1,6 @@
 ﻿namespace PropsEnumSample.Attributes
 {
-    internal class BillingPromotionFeatureEnabledAttribute(bool enabled) : EnumEnableAttributeBase(enabled)
+    internal class BillingPromotionFeatureEnabledAttribute(bool value) : EnumBooleanAttributeBase(value)
     {
     }
 }

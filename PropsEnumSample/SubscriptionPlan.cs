@@ -28,29 +28,28 @@ namespace PropsEnumSample
     static class SubscriptionPlanExtensions {
 
         public static bool IsBillingPromotionFeatureEnabled(this SubscriptionPlan self) {
-            return IsEnabled<BillingPromotionFeatureEnabledAttribute>(self);
+            return IsTrue<BillingPromotionFeatureEnabledAttribute>(self);
         }
 
         public static bool IsLimitedContentAccessible(this SubscriptionPlan self) {
-            return IsEnabled<LimitedContentAccessibleAttribute>(self);
+            return IsTrue<LimitedContentAccessibleAttribute>(self);
         }
 
         public static bool IsDiscountPromotionEnabled(this SubscriptionPlan self) {
-            return IsEnabled<DiscountPromotionEnabledAttribute>(self);
+            return IsTrue<DiscountPromotionEnabledAttribute>(self);
         }
 
         public static bool IsStudentVerificationRequired(this SubscriptionPlan self) {
-            return IsEnabled<StudentVerificationRequiredAttribute>(self);
+            return IsTrue<StudentVerificationRequiredAttribute>(self);
         }
-        private static bool IsEnabled<T>(SubscriptionPlan self) where T : EnumEnableAttributeBase {
+        private static bool IsTrue<T>(SubscriptionPlan self) where T : EnumBooleanAttributeBase {
             var planName = Enum.GetName(typeof(SubscriptionPlan), self)!;
             var plan = self.GetType().GetField(planName)!;
 
             T attr = plan.GetCustomAttributes(typeof(T), inherit: false).Cast<T>().FirstOrDefault() ??
                 throw new InvalidOperationException($"Attribute {typeof(T).Name} is not defined for {planName}.");
 
-            return attr.Enabled;
+            return attr.Value;
         }
-
     }
 }

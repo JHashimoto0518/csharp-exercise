@@ -1,4 +1,7 @@
-﻿namespace PropsEnumSample {
+﻿using PropsEnumSample.Attributes;
+
+namespace PropsEnumSample
+{
     enum SubscriptionPlan {
         [BillingPromotionFeatureEnabled(false)]
         [LimitedContentAccessible(false)]

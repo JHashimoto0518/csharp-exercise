@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PropsEnumSample {
+﻿namespace PropsEnumSample {
     enum SubscriptionPlan {
         [BillingPromotionFeatureEnabled(false)]
         [LimitedContentAccessible(false)]
@@ -29,7 +22,6 @@ namespace PropsEnumSample {
         Student
     }
 
-    // SubscriptionPlanの拡張メソッドを定義する
     static class SubscriptionPlanExtensions {
 
         public static bool IsBillingPromotionFeatureEnabled(this SubscriptionPlan self) {

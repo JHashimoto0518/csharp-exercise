@@ -38,5 +38,3 @@ var downloadPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFol
 using (var res = s3Client.GetObjectAsync("dummy-bucket", "/foo/bar")) {
     res.Result.WriteResponseStreamToFileAsync(downloadPath, append: false, CancellationToken.None);
 }
-
-

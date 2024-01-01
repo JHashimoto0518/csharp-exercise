@@ -1,7 +1,9 @@
 ﻿using PropsEnumSample.Attributes;
 
-namespace PropsEnumSample {
-    enum SubscriptionPlanUsingCache {
+namespace PropsEnumSample.Enums
+{
+    enum SubscriptionPlanUsingCache
+    {
         [BillingPromotionFeatureEnabled(false)]
         [LimitedContentAccessible(false)]
         [DiscountPromotionEnabled(false)]
@@ -24,40 +26,37 @@ namespace PropsEnumSample {
         Student
     }
 
-    static class SubscriptionPlanUsingCacheExtensions {
+    static class SubscriptionPlanUsingCacheExtensions
+    {
 
-        public static bool IsBillingPromotionFeatureEnabled(this SubscriptionPlanUsingCache self) {
+        public static bool IsBillingPromotionFeatureEnabled(this SubscriptionPlanUsingCache self)
+        {
             return IsTrue<BillingPromotionFeatureEnabledAttribute>(self);
         }
 
-        public static bool IsLimitedContentAccessible(this SubscriptionPlanUsingCache self) {
+        public static bool IsLimitedContentAccessible(this SubscriptionPlanUsingCache self)
+        {
             return IsTrue<LimitedContentAccessibleAttribute>(self);
         }
 
-        public static bool IsDiscountPromotionEnabled(this SubscriptionPlanUsingCache self) {
+        public static bool IsDiscountPromotionEnabled(this SubscriptionPlanUsingCache self)
+        {
             return IsTrue<DiscountPromotionEnabledAttribute>(self);
         }
 
-        public static bool IsStudentVerificationRequired(this SubscriptionPlanUsingCache self) {
+        public static bool IsStudentVerificationRequired(this SubscriptionPlanUsingCache self)
+        {
             return IsTrue<StudentVerificationRequiredAttribute>(self);
         }
 
-        private static Dictionary<SubscriptionPlanUsingCache, bool> _cache = new Dictionary<SubscriptionPlanUsingCache, bool>();
 
-        private static bool IsTrue<T>(SubscriptionPlanUsingCache self) where T : EnumBooleanAttributeBase {
-            // If the value is already in the cache, return it.
-            if (_cache.ContainsKey(self))
-            {
-                return _cache[self];
-            }
-
+        private static bool IsTrue<T>(SubscriptionPlanUsingCache self) where T : EnumBooleanAttributeBase
+        {
             var planName = Enum.GetName(typeof(SubscriptionPlan), self)!;
             var plan = self.GetType().GetField(planName)!;
 
             T attr = plan.GetCustomAttributes(typeof(T), inherit: false).Cast<T>().FirstOrDefault() ??
                 throw new InvalidOperationException($"Attribute {typeof(T).Name} is not defined for {planName}.");
-
-            _cache[self] = attr.Value;
 
             return attr.Value;
         }

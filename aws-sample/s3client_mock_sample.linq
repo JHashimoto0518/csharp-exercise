@@ -10,8 +10,8 @@
 </Query>
 
 // data for mock s3 object
-var pathToTestDoc = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Downloads\test.dat");
-var docStream = new FileInfo(pathToTestDoc).OpenRead();
+var testDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Downloads\test.dat");
+var docStream = new FileInfo(testDataPath).OpenRead();
 
 Mock<IAmazonS3> s3ClientMock = new Mock<IAmazonS3>();
 s3ClientMock
@@ -34,9 +34,9 @@ s3ClientMock
 IAmazonS3 s3Client = s3ClientMock.Object;
 
 // When calling the method, it returns mock value.
-var downloadedFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Downloads\downloadedFile.dat");
+var downloadPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Downloads\downloadedFile.dat");
 using (var res = s3Client.GetObjectAsync("dummy-bucket", "/foo/bar")) {
-    res.Result.WriteResponseStreamToFileAsync(downloadedFile, append: false, CancellationToken.None);
+    res.Result.WriteResponseStreamToFileAsync(downloadPath, append: false, CancellationToken.None);
 }
 
 

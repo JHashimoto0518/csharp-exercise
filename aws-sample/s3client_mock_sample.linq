@@ -15,7 +15,7 @@ var docStream = new FileInfo(testDataPath).OpenRead();
 
 Mock<IAmazonS3> s3ClientMock = new Mock<IAmazonS3>();
 s3ClientMock
-	// set the return value to mock
+    // set the return value to mock
     .Setup(x => x.GetObjectAsync(
         It.IsAny<string>(),
         It.IsAny<string>(),

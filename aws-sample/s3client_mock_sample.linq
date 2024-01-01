@@ -9,14 +9,13 @@
   <Namespace>System.Net</Namespace>
 </Query>
 
+// data for mock s3 object
 var pathToTestDoc = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Downloads\test.dat");
-
 var docStream = new FileInfo(pathToTestDoc).OpenRead();
 
-// S3アクセスするクライアントのモックを設定
 Mock<IAmazonS3> s3ClientMock = new Mock<IAmazonS3>();
 s3ClientMock
-    // GetObjectAsyncメソッドの戻り値をモックに設定
+	// set the return value to mock
     .Setup(x => x.GetObjectAsync(
         It.IsAny<string>(),
         It.IsAny<string>(),
@@ -31,12 +30,13 @@ s3ClientMock
                 ResponseStream = docStream,
             });
 
-// モックを取得する
+// get s3 client mock
 IAmazonS3 s3Client = s3ClientMock.Object;
 
+// When calling the method, it returns mock value.
 var downloadedFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Downloads\downloadedFile.dat");
-
-// モックのGetObjectAsyncを呼び出すと、事前に設定した戻り値が返される。
 using (var res = s3Client.GetObjectAsync("dummy-bucket", "/foo/bar")) {
     res.Result.WriteResponseStreamToFileAsync(downloadedFile, append: false, CancellationToken.None);
 }
+
+

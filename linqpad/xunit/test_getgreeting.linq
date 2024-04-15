@@ -1,4 +1,4 @@
-<Query Kind="Program">
+<Query Kind="Statements">
   <Output>DataGrids</Output>
   <Namespace>Xunit</Namespace>
 </Query>
